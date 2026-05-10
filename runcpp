@@ -1,0 +1,14 @@
+#!/bin/bash
+cd "$PWD"
+g++ "$1" -o test
+
+if [ -e test ]; then
+    echo "$1:"
+    echo
+    ./test
+    rm test
+else
+    echo
+    echo "$1 COULD NOT COMPILE"
+fi
+
