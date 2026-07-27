@@ -18,8 +18,8 @@ monitor=eDP-1,1920x1080@60,0x0,1
 
 # Set programs that you use
 $terminal = alacritty
-$fileManager = thunar 
-$menu = noctalia msg panel-toggle launcher
+$fileManager = dolphin
+$menu = wofi --show drun
 
 
 #################
@@ -32,10 +32,8 @@ $menu = noctalia msg panel-toggle launcher
 exec-once = /usr/lib/polkit-kde-authentication-agent-1
 # exec-once = $terminal
 # exec-once = nm-applet &
-# exec-once = waybar 
-exec-once = noctalia
-# exec-once = hyprpaper
-# exec-once = quickshell 
+exec-once = waybar 
+exec-once = hyprpaper
 # & firefox
 
 #############################
@@ -79,34 +77,43 @@ decoration {
 
     blur {
         enabled = true
-        size = 4
-        passes = 2
+        size = 3
+        passes = 1
 
         vibrancy = 0.1696
     }
 }
 
 animations {
-    enabled = 1
-    bezier = default, 0.12, 0.92, 0.08, 1.0
-    bezier = wind, 0.12, 0.92, 0.08, 1.0
-    bezier = overshot, 0.18, 0.95, 0.22, 1.03
-    bezier = liner, 1, 1, 1, 1
+    enabled = yes, please :)
 
-    animation = windows, 1, 5, wind, popin 60%
-    animation = windowsIn, 1, 6, overshot, popin 60%
-    animation = windowsOut, 1, 4, overshot, popin 60%
-    animation = windowsMove, 1, 4, overshot, slide
-    animation = layers, 1, 4, default, popin
-    animation = fadeIn, 1, 7, default
-    animation = fadeOut, 1, 7, default
-    animation = fadeSwitch, 1, 7, default
-    animation = fadeShadow, 1, 7, default
-    animation = fadeDim, 1, 7, default
-    animation = fadeLayers, 1, 7, default
-    animation = workspaces, 1, 5, overshot, slidevert
-    animation = border, 1, 1, liner
-    animation = borderangle, 1, 24, liner, loop
+    # Default curves, see https://wiki.hypr.land/Configuring/Animations/#curves
+    #        NAME,           X0,   Y0,   X1,   Y1
+    bezier = easeOutQuint,   0.23, 1,    0.32, 1
+    bezier = easeInOutCubic, 0.65, 0.05, 0.36, 1
+    bezier = linear,         0,    0,    1,    1
+    bezier = almostLinear,   0.5,  0.5,  0.75, 1
+    bezier = quick,          0.15, 0,    0.1,  1
+
+    # Default animations, see https://wiki.hypr.land/Configuring/Animations/
+    #           NAME,          ONOFF, SPEED, CURVE,        [STYLE]
+    animation = global,        1,     10,    default
+    animation = border,        1,     5.39,  easeOutQuint
+    animation = windows,       1,     4.79,  easeOutQuint
+    animation = windowsIn,     1,     4.1,   easeOutQuint, popin 87%
+    animation = windowsOut,    1,     1.49,  linear,       popin 87%
+    animation = fadeIn,        1,     1.73,  almostLinear
+    animation = fadeOut,       1,     1.46,  almostLinear
+    animation = fade,          1,     3.03,  quick
+    animation = layers,        1,     3.81,  easeOutQuint
+    animation = layersIn,      1,     4,     easeOutQuint, fade
+    animation = layersOut,     1,     1.5,   linear,       fade
+    animation = fadeLayersIn,  1,     1.79,  almostLinear
+    animation = fadeLayersOut, 1,     1.39,  almostLinear
+    animation = workspaces,    1,     1.94,  almostLinear, fade
+    animation = workspacesIn,  1,     1.21,  almostLinear, fade
+    animation = workspacesOut, 1,     1.94,  almostLinear, fade
+    animation = zoomFactor,    1,     7,     quick
 }
 
 
@@ -153,7 +160,6 @@ device {
 ###################
 
 $mainMod = SUPER 
-
 bind = $mainMod, R, exec, pkill waybar && waybar &
 bind = $mainMod, return, exec, $terminal
 bind = $mainMod, Q, killactive,
@@ -193,7 +199,6 @@ bind = $mainMod SHIFT, 7, movetoworkspace, 7
 bind = $mainMod SHIFT, 8, movetoworkspace, 8
 bind = $mainMod SHIFT, 9, movetoworkspace, 9
 bind = $mainMod SHIFT, 0, movetoworkspace, 10
-bind = $mainMod, h, movefocus, l
 
 # Example special workspace (scratchpad)
 bind = $mainMod, S, togglespecialworkspace, magic
@@ -253,7 +258,3 @@ windowrule {
     move = 20 monitor_h-120
     float = yes
 }
-
-
-# For Noctalia Color templates
-source = ~/.config/hypr/noctalia.conf
