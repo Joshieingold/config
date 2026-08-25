@@ -3,7 +3,7 @@
 ---------------
 
 local terminalApp = "alacritty"
-local fileManagerApp = "thunar"
+local fileManagerApp = "hyprfm"
 local menuApp = "noctalia msg panel-toggle launcher"
 local mainMod = "SUPER"
 
